@@ -1,17 +1,19 @@
-// Replace YOUR_API_KEY and YOUR_CANVAS_URL
 const api_key = '6936~lmiEmoqxdwHzIgXxZgS1boDoCk4ZDJhchviPlzQeVlcKvtKacPSp8gIw5uT7sHpa';
 const canvas_url = 'https://k12.instructure.com';
-
 const headers = {
   'Authorization': `Bearer ${api_key}`
 };
 
 async function get_all_courses() {
-    const response = await fetch(`${canvas_url}/api/v1/courses?enrollment_type=teacher`, {headers: headers});
+    const response = await fetch(`${canvas_url}/api/v1/courses?enrollment_type=teacher`, {
+        headers: headers
+    });
     if (response.ok) {
-        return await response.json();
+        const courses = await response.json();
+        console.log("Fetched courses: ", courses);  // Debug line
+        return courses;
     } else {
-        console.error('Failed to get courses:', response.status, await response.text());
+        console.error("Failed to fetch courses:", await response.text());
         return [];
     }
 }
@@ -32,18 +34,23 @@ async function create_assignment_in_course(course_id, assignment_info) {
 document.addEventListener("DOMContentLoaded", async function() {
     const courses = await get_all_courses();
 
-    // Populate the courseSelect element with courses
-    const courseSelect = document.getElementById("courseSelect");
-    courses.forEach((course) => {
-        const option = document.createElement('option');
-        option.text = `${course['name']} (ID: ${course['id']})`;
-        option.value = course['id'];
-        courseSelect.add(option);
-    });
+    // Debug line to ensure courses are fetched successfully
+    console.log("Courses fetched and passed to DOMContentLoaded: ", courses);
 
+    const courseSelect = document.getElementById("courseSelect");
+    if(courseSelect) {  // Check if the dropdown exists
+        courses.forEach((course) => {
+            const option = document.createElement('option');
+            option.text = `${course['name']} (ID: ${course['id']})`;
+            option.value = course['id'];
+            courseSelect.add(option);
+        });
+    } else {
+        console.error("Dropdown with ID 'courseSelect' not found.");
+    }
+    
     const submitButton = document.getElementById("submitButton");
     submitButton.addEventListener("click", async function() {
-        // Get all the form values
         const selectedCourseIds = Array.from(courseSelect.selectedOptions).map(option => Number(option.value));
         const assignmentName = document.getElementById("assignmentName").value;
         const assignmentDescription = document.getElementById("assignmentDescription").value;
