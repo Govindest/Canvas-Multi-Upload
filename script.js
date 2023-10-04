@@ -1,6 +1,6 @@
 // Replace YOUR_API_KEY and YOUR_CANVAS_URL
-const api_key = 'YOUR_API_KEY';
-const canvas_url = 'YOUR_CANVAS_URL';
+const api_key = '6936~lmiEmoqxdwHzIgXxZgS1boDoCk4ZDJhchviPlzQeVlcKvtKacPSp8gIw5uT7sHpa';
+const canvas_url = 'https://k12.instructure.com';
 
 const headers = {
   'Authorization': `Bearer ${api_key}`
