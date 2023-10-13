@@ -41,6 +41,10 @@ This Python script allows you to automate the process of creating assignments an
 The script is modular, making it easy to extend or add features.
 
 ### Adding a New Feature
+My Personal Next Steps
+- Get Github Pages to Work
+- If your client wants it, add an auto module system
+- Place to save the api key(web model)
 
 1. Create a new function similar to create_assignment_in_course or create_announcement_in_course.
 
