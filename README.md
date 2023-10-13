@@ -14,10 +14,16 @@ This Python script allows you to automate the process of creating assignments an
 ### Steps to Follow
 
 1. Replace YOUR_API_KEY and YOUR_CANVAS_URL in the script with your actual Canvas API key and Canvas URL.
+2. 
    api_key = 'your_actual_api_key_here'
+   
    canvas_url = 'https://your.canvas.url.here'
+   
    If you are from nueva, no need to change canvas url
+   
    You can get the api key, by going to settings from your profile, scrolling down, and making a new API KEY. MAKE SURE to save your API key elsewhere
+
+
 
 3. Run the script:
    Go to the top and click on runtime, and hit 'run all'
