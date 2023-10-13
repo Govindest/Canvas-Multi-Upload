@@ -1,4 +1,4 @@
-# Canvas-Multi-Upload - https://colab.research.google.com/drive/1HlIhtGWA6b4McfxaIapNZzkB4nhP8u2P#scrollTo=ML4qVxEquVaF
+# Canvas-Multi-Upload - https://colab.research.google.com/drive/1alz0smywrpYTjlwgxlVqLMACF8I_XQk4#scrollTo=ML4qVxEquVaF
 
 # Canvas Automation Script README
 
@@ -13,15 +13,8 @@ This Python script allows you to automate the process of creating assignments an
 
 ### Steps to Follow
 
-1. Replace YOUR_API_KEY and YOUR_CANVAS_URL in the script with your actual Canvas API key and Canvas URL.
-2. 
-   api_key = 'your_actual_api_key_here'
-   
-   canvas_url = 'https://your.canvas.url.here'
-   
-   If you are from nueva, no need to change canvas url
-   
-   You can get the api key, by going to settings from your profile, scrolling down, and making a new API KEY. MAKE SURE to save your API key elsewhere
+1. Replace YOUR_API_KEY. in the script with your actual Canvas API key.
+  - Get your api key by going to settings from your profile. Then scroll down and generate an API Key. There is a big slot that says REPLACE, so enter your API key. SAVE YOUR KEY ELSEWHERE.
 
 
 
