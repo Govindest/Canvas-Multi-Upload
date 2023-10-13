@@ -8,9 +8,8 @@ This Python script allows you to automate the process of creating assignments an
 
 ### Prerequisites
 
-- Python installed on your system.
-- requests Python package. Install it using pip if you haven't:
-  pip install requests
+- Teacher Canvas Account
+  
 
 ### Steps to Follow
 
