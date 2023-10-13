@@ -12,6 +12,9 @@ This Python script allows you to automate the process of creating assignments an
   
 
 ### Steps to Follow
+- Make a copy of the colab
+- CLICK FILE, THEN CLICK SAVE COPY IN DRIVE
+- Then follow steps
 
 1. Replace YOUR_API_KEY. in the script with your actual Canvas API key.
   - Get your api key by going to settings from your profile. Then scroll down and generate an API Key. There is a big slot that says REPLACE, so enter your API key. SAVE YOUR KEY ELSEWHERE.
