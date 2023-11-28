@@ -1,86 +1,74 @@
-const api_key = '6936~lmiEmoqxdwHzIgXxZgS1boDoCk4ZDJhchviPlzQeVlcKvtKacPSp8gIw5uT7sHpa';
-const canvas_url = 'https://k12.instructure.com';
-const headers = {
-  'Authorization': `Bearer ${api_key}`
-};
-
-async function get_all_courses() {
-    const response = await fetch(`${canvas_url}/api/v1/courses?enrollment_type=teacher`, {
-        headers: headers
-    });
-    if (response.ok) {
-        const courses = await response.json();
-        console.log("Fetched courses: ", courses);  // Debug line
-        return courses;
-    } else {
-        console.error("Failed to fetch courses:", await response.text());
-        return [];
-    }
-}
-
-async function create_assignment_in_course(course_id, assignment_info) {
-    const response = await fetch(`${canvas_url}/api/v1/courses/${course_id}/assignments`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(assignment_info)
-    });
-    if (response.ok) {
-        console.log(`Successfully created assignment in course ${course_id}`);
-    } else {
-        console.error(`Failed to create assignment in course ${course_id}:`, response.status, await response.text());
-    }
-}
-
-document.addEventListener("DOMContentLoaded", async function() {
-    const courses = await get_all_courses();
-
-    // Debug line to ensure courses are fetched successfully
-    console.log("Courses fetched and passed to DOMContentLoaded: ", courses);
-
-    const courseSelect = document.getElementById("courseSelect");
-    if(courseSelect) {  // Check if the dropdown exists
-        courses.forEach((course) => {
-            const option = document.createElement('option');
-            option.text = `${course['name']} (ID: ${course['id']})`;
-            option.value = course['id'];
-            courseSelect.add(option);
-        });
-    } else {
-        console.error("Dropdown with ID 'courseSelect' not found.");
-    }
-    
-    const submitButton = document.getElementById("submitButton");
-    submitButton.addEventListener("click", async function() {
-        const selectedCourseIds = Array.from(courseSelect.selectedOptions).map(option => Number(option.value));
-        const assignmentName = document.getElementById("assignmentName").value;
-        const assignmentDescription = document.getElementById("assignmentDescription").value;
-        const dueDate = document.getElementById("dueDate").value;
-        const gradingType = document.getElementById("gradingType").value;
-        const pointsPossible = document.getElementById("pointsPossible").value;
-        const submissionTypes = document.getElementById("submissionTypes").value;
-
-        if (!selectedCourseIds.length) {
-            console.log("No valid course numbers were selected.");
-            return;
-        }
-
-        const assignment_info = {
-            'assignment[name]': assignmentName,
-            'assignment[description]': assignmentDescription,
-            'assignment[points_possible]': pointsPossible,
-            'assignment[grading_type]': gradingType,
-            'assignment[due_at]': `${dueDate}T23:59:00Z`
-        };
-
-        if (submissionTypes === 'yes') {
-            assignment_info['assignment[submission_types]'] = ['online_url'];
-            assignment_info['assignment[allowed_extensions]'] = ['html'];
-        } else {
-            assignment_info['assignment[submission_types]'] = ['none'];
-        }
-
-        for (const course_id of selectedCourseIds) {
-            await create_assignment_in_course(course_id, assignment_info);
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listener for API key submission
+    document.getElementById('apiKeyForm').addEventListener('submit', function(event){
+        event.preventDefault();
+        const apiKey = document.getElementById('apiKey').value;
+        fetchCourses(apiKey);
     });
 });
+
+function fetchCourses(apiKey) {
+    const canvasApiUrl = 'https://canvas.instructure.com';
+    fetch(canvasApiUrl, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`
+        }
+    })
+    .then(response => response.json())
+    .then(courses => {
+        populateCoursesDropdown(courses);
+    })
+    .catch(error => {
+        console.error('Error fetching courses:', error);
+    });
+}
+
+function populateCoursesDropdown(courses) {
+    const coursesSelect = document.getElementById('courses');
+    coursesSelect.innerHTML = ''; // Clear existing options
+    courses.forEach(course => {
+        const option = document.createElement('option');
+        option.value = course.id;
+        option.textContent = course.name;
+        coursesSelect.appendChild(option);
+    });
+}
+
+document.getElementById('assignmentForm').addEventListener('submit', function(event){
+    event.preventDefault();
+
+    const apiKey = document.getElementById('apiKey').value;
+    const selectedCourseId = document.getElementById('courses').value;
+    const assignmentName = document.getElementById('assignmentName').value;
+    const dueDate = document.getElementById('dueDate').value;
+
+    createAssignment(apiKey, selectedCourseId, assignmentName, dueDate);
+});
+
+function createAssignment(apiKey, courseId, name, dueDate) {
+    const canvasApiUrl = `https://canvas.instructure.com/api/v1/courses/${courseId}/assignments`;
+    
+    fetch(canvasApiUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            assignment: {
+                name: name,
+                due_at: dueDate
+            }
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Assignment created:', data);
+        alert('Assignment created successfully!');
+    })
+    .catch(error => {
+        console.error('Error creating assignment:', error);
+        alert('Error creating assignment. See console for details.');
+    });
+}
