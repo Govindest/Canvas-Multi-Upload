@@ -8,7 +8,10 @@ This allows you to automate the creating of assignments
 
 To edit, download the code, and now play around with! All of the user's needs are taken care of, but some things I would like to add are; changed time, more orderly descriptions 
 
-One more thing, I have made it very easy to implement changes through the HTML, PLEASE USE IT :)
+One more thing, I have made it very easy to implement changes through the HTML, PLEASE USE IT :). 
+   - Go CLose to the bottom
+   - In the list of parameters, go to the bottom
+   - Make your own paramaters
 
 Colab Version
 ## How to Use
