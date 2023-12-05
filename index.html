@@ -26,14 +26,25 @@
 
             <label for="assignmentName">Assignment Name:</label>
             <input type="text" id="assignmentName" name="assignmentName" required><br><br>
-
+            <!--grade types-->
             <label for="dueDate">Due Date:</label>
             <input type="date" id="dueDate" name="dueDate" required><br><br>
+    
+            <label for="gradingType">Grading Type:</label>
+            <select id="gradingType" name="gradingType" required>
+                <option value="letter_grade">Letter Grade</option>
+                <option value="percentage">Percentage</option>
+                <option value="points">Points</option>
+                <option value="not_graded">Not Graded</option>
+            </select><br><br>
+            <!--change for setup-->
+            <label for="assignmentDetails">Assignment Details:</label>
+            <textarea id="assignmentDetails" name="assignmentDetails" rows="4"></textarea><br><br>
 
             <button type="submit">Create Assignment</button>
         </form>
     </div>
-
+              <!--link to js-->
     <script src="script.js"></script>
 </body>
 </html>
