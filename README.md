@@ -2,6 +2,17 @@
 
 # Canvas Automation Script README
 
+Website Version
+
+This allows you to automate the creating of assignments
+
+To edit, download the code, and now play around with!
+
+Prequisites are down below
+
+One more thing, I have made it very easy to implement changes through the HTML, PLEASE USE IT :)
+
+Colab Version
 ## How to Use
 
 This Python script allows you to automate the process of creating assignments and announcements in multiple courses on Canvas.
