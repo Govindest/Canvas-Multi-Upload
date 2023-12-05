@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchCourses(apiKey);
     });
 });
-
+//api fetch
 function fetchCourses(apiKey) {
     const canvasApiUrl = 'https://canvas.instructure.com';
     fetch(canvasApiUrl, {
@@ -14,13 +14,13 @@ function fetchCourses(apiKey) {
         headers: {
             'Authorization': `Bearer ${apiKey}`
         }
-    })
+    })//sequence
     .then(response => response.json())
     .then(courses => {
         populateCoursesDropdown(courses);
     })
-    .catch(error => {
-        console.error('Error fetching courses:', error);
+    .catch(error => {//error
+        console.error('Error fetching courses:', error);//testing
     });
 }
 
@@ -34,7 +34,7 @@ function populateCoursesDropdown(courses) {
         coursesSelect.appendChild(option);
     });
 }
-
+//open inputing
 document.getElementById('assignmentForm').addEventListener('submit', function(event){
     event.preventDefault();
 
@@ -45,7 +45,7 @@ document.getElementById('assignmentForm').addEventListener('submit', function(ev
 
     createAssignment(apiKey, selectedCourseId, assignmentName, dueDate);
 });
-
+//connection to canvas
 function createAssignment(apiKey, courseId, name, dueDate) {
     const canvasApiUrl = `https://canvas.instructure.com/api/v1/courses/${courseId}/assignments`;
     
@@ -67,7 +67,7 @@ function createAssignment(apiKey, courseId, name, dueDate) {
         console.log('Assignment created:', data);
         alert('Assignment created successfully!');
     })
-    .catch(error => {
+    .catch(error => {//testing
         console.error('Error creating assignment:', error);
         alert('Error creating assignment. See console for details.');
     });
